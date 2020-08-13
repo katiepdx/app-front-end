@@ -2,9 +2,13 @@
 import request from 'superagent';
 
 // API URL for fetch
-const URL = 'https://fullstack-app-dogs.herokuapp.com/dogs';
+const URL = process.env.REACT_APP_API_URL;
 
 export function fetchDogsData() {
-    return request.get(`${URL}`);
+    return request.get(`${URL}/dogs`);
+}
 
+// get one dog 
+export function fetchOneDog(id) {
+    return request.get(`${URL}/dogs/${id}`);
 }
