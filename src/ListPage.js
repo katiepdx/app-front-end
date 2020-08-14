@@ -24,7 +24,6 @@ class ListPage extends React.Component {
   
     // render everything data to the page 
     render() {
-    console.log(this.state.dogs);
       return (
         <div className="App">
           <Header/>
