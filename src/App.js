@@ -1,51 +1,49 @@
-import React from 'react';
-import Header from './Header.js';
-// import dogs api
-import { fetchDogsData } from './dogs-api.js';
+import React, { Component } from 'react'
 import './App.css';
+import ListPage from './ListPage.js';
+import CreatePage from './CreatePage.js';
+import DetailPage from './DetailPage.js';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch, 
+  Link
+} from 'react-router-dom';
 
-class App extends React.Component {
-  // set state of dogs 
-  state = {
-    dogs: []
-  }
-
-  // add an async component did mount to fetch the data from the dogs api
-  // set state of dogs array using the response from the api
-  componentDidMount = async () => {
-    const data = await fetchDogsData()
-
-    // set state of dogs to data
-    this.setState({
-      dogs: data.body
-    })
-  }
-
-  // render everything data to the page 
+export default class App extends Component {
   render() {
     return (
-      <div className="App">
-        <Header/>
-        <section className="dog-tiles">
-          <div className="tiles-container">
-            {/* make JS portal to map through dogs array and render to page */}
-            {
-              this.state.dogs.map((dog) => {
-                return <div className="one-dog-tile">
-                  <div>Name : {dog.name}</div>
-                  <div>Id : {dog.id}</div>
-                  <div>Age : {dog.age_years}</div>
-                  <div>Size : {dog.size}</div>
-                  <div>Has Forever Home : {dog.is_adopted ? 'Yes' : 'No'} </div>
-                </div>
-              })
-            }
+      <div>        
+        {/* add links to different pages using Switch, Router, and Link */}
+        <Router>
+          <div className="nav-links">
+            <Link className="nav-link-1" to='/'>All Dogs</Link>
+            <Link className="nav-link-2" to='/create'>Add</Link>
           </div>
-        </section>
+
+          <Switch>
+            {/* list page route */}
+            <Route
+              path="/"
+              exact
+              render={(routerProps) => <ListPage {...routerProps} />} 
+            />
+            {/* add an entry page route */}
+            <Route
+              path="/create"
+              exact
+              render={(routerProps) => <CreatePage {...routerProps} />} 
+            />
+            {/* pup (:id) details page route for selected pup */}
+            <Route
+              path="/detail/:id"
+              exact
+              render={(routerProps) => <DetailPage {...routerProps} />} 
+            />
+
+          </Switch>
+        </Router>
       </div>
-    );
+    )
   }
-
 }
-
-export default App;
