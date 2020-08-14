@@ -14,9 +14,9 @@ export default class DetailPage extends Component {
         const data = await fetchOneDog(this.props.match.params.id)
 
         // get the first obj in the array and set it to the dog state
-        this.setState = {
+        this.setState({
             dog: data.body
-        }
+        })
     }
     
     render() {
