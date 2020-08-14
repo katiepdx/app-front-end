@@ -13,3 +13,8 @@ export function fetchDogsData() {
 export function fetchOneDog(id) {
     return request.get(`${URL}/dogs/${id}`);
 }
+// create a dog tile function using the data from the form
+export function createDogTile(dogData) {
+    // make a POST request with the dogData...add to dogs list page
+    return request.post(`${URL}/dogs`, dogData)
+}
