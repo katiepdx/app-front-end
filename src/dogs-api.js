@@ -5,7 +5,6 @@ import request from 'superagent';
 const URL = process.env.REACT_APP_API_URL;
 
 export function fetchDogsData() {
-    console.log(`${URL}/dogs`);
     return request.get(`${URL}/dogs`);
 }
 
