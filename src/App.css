@@ -4,15 +4,15 @@
   padding-left: 3%;
 }
 
+.nav-link-1:hover, .nav-link-2:hover {
+  text-decoration: underline;
+}
+
 a {
   color: white;
   text-decoration: none;
   font-size: 1.3rem;
   padding-right: 2%;
-}
-
-a:hover {
-  font-size: larger;
 }
 
 h1 {

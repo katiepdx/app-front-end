@@ -17,8 +17,8 @@ export default class App extends Component {
         {/* add links to different pages using Switch, Router, and Link */}
         <Router>
           <div className="nav-links">
-            <Link to='/'>All Dogs</Link>
-            <Link to='/create'>Add</Link>
+            <Link className="nav-link-1" to='/'>All Dogs</Link>
+            <Link className="nav-link-2" to='/create'>Add</Link>
           </div>
 
           <Switch>
