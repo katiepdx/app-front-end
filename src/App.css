@@ -15,9 +15,9 @@ a:hover {
   font-size: larger;
 }
 
-.header {
+h1 {
   background-color: rgb(216, 231, 245);
-  font-size: 1.5rem;
+  font-size: 2rem;
   text-align: center;
   margin-top: 2%;
   font-family: sans-serif;
@@ -28,17 +28,16 @@ a:hover {
   min-height: 100vh;
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: center;
+  justify-content: space-evenly;
   font-size: 1.4rem;
   color: white;
   border-radius: 1.2%;
-  margin-left: 1%;
-  margin-right: 1%;
+  margin: 1%;
 }
 
 .tiles-container {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .one-dog-tile {
@@ -48,7 +47,7 @@ a:hover {
   margin: 2%;
   border-radius: 5%;
   height: min-content;
-  width: auto;
+  width: fit-content;
 }
 
 .one-dog-tile:hover {
@@ -59,11 +58,35 @@ a:hover {
 .add-form {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   font-size: 2rem;
 }
 
+.add-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 input {
   font-size: 1.2rem;
+  margin: 5px;
+}
+
+button {
+  width: 100%;
+  margin: 5px;
+}
+
+.details-about-pup {
+  font-size: 2rem;
+  width: fit-content;
+  text-align: center;
+}
+
+.detail-pup-tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

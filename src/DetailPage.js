@@ -23,7 +23,14 @@ export default class DetailPage extends Component {
         console.log(this.state.dog)
         return (
             <div>
-                This is {this.state.dog.name}.
+                <h1>About {this.state.dog.name}</h1>
+                <div className="detail-pup-tile">
+                    <p className="details-about-pup">
+                        <div>This {this.state.dog.name}.</div> 
+                        <div>{this.state.dog.name} is {this.state.dog.age_years} year(s) old.</div> 
+                        <div>{this.state.dog.name} is a {this.state.dog.size} sized pup.</div>
+                    </p>
+                </div>
             </div>
         )
     }

@@ -60,39 +60,41 @@ export default class CreatePage extends Component {
             <div>
                 <h1>ADD</h1>
                 {/* form goes here with an onSubmit */}
-                <form className="add-form" onSubmit={this.handleSubmit}>
-                    {/* name */}
-                    <label>
-                        Name:
-                        <input onChange={this.handleNameChange} type="text" value={this.state.name} />
-                    </label>
+                <form className="add-form-container" onSubmit={this.handleSubmit}>
+                    <div className="add-form">
+                        {/* name */}
+                        <label>
+                            Name:
+                            <input onChange={this.handleNameChange} type="text" value={this.state.name} />
+                        </label>
 
-                    {/* age */}
-                    <label>
-                        Age:
-                        <input onChange={this.handleAgeChange} type="number" value={this.state.age_years} />
-                    </label>
+                        {/* age */}
+                        <label>
+                            Age:
+                            <input onChange={this.handleAgeChange} type="number" value={this.state.age_years} />
+                        </label>
 
-                    {/* dog size dropdown selection */}
-                    <label>
-                        Size:
-                        <select onChange={this.handleSizeChange} value={this.state.size} >
-                            <option value="x-small">x-small</option>
-                            <option value="small">small</option>
-                            <option value="medium">medium</option>
-                            <option value="large">large</option>
-                            <option value="x-large">x-large</option>
-                        </select>
-                    </label>
+                        {/* dog size dropdown selection */}
+                        <label>
+                            Size:
+                            <select onChange={this.handleSizeChange} value={this.state.size} >
+                                <option value="x-small">x-small</option>
+                                <option value="small">small</option>
+                                <option value="medium">medium</option>
+                                <option value="large">large</option>
+                                <option value="x-large">x-large</option>
+                            </select>
+                        </label>
 
-                    {/* is_adopted/has a forever home - boolean */}
-                    <label>
-                        Has Forever Home:
-                        <input onChange={this.handleHomeChange} type="checkbox" name="home" value="true" />
+                        {/* is_adopted/has a forever home - boolean */}
+                        <label>
+                            Has Forever Home:
+                            <input onChange={this.handleHomeChange} type="checkbox" name="home" value="true" />
 
-                    </label>
+                        </label>
 
-                    <button>Add</button>
+                        <button>Add</button>
+                    </div>
                 </form>
             </div>
         )
