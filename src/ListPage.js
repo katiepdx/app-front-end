@@ -15,7 +15,7 @@ class ListPage extends React.Component {
     // set state of dogs array using the response from the api
     componentDidMount = async () => {
       const data = await fetchDogsData()
-  
+
       // set state of dogs to data
       this.setState({
         dogs: data.body
@@ -38,8 +38,8 @@ class ListPage extends React.Component {
                         <div>Name : {dog.name}</div>
                         <div>Id : {dog.id}</div>
                         <div>Age : {dog.age_years}</div>
-                        <div>Size : {dog.size}</div>
                         <div>Has Forever Home : {dog.is_adopted ? 'Yes' : 'No'} </div>
+                        <div>Size : {dog.size}</div>
                       </div>
                 </Link>  )
                 })

@@ -1,15 +1,31 @@
 // add an entry page here
 
 import React, { Component } from 'react'
-import { createDogTile } from './dogs-api.js';
+import { createDogTile, fetchDogSizes } from './dogs-api.js';
 
 export default class CreatePage extends Component {
     // set state 
     state = {
         name: 'Clifford',
         age_years: 1,
-        size: 'small',
-        is_adopted: false
+        is_adopted: false,
+        size_id: 1,
+        size: 'small'
+    }
+
+    // on page load, fetchDogSizes 
+    componentDidMount = async () => {
+        // get dog sizes 
+        const dogSizes = await fetchDogSizes();
+        console.log(dogSizes)
+
+        // set the dog sizes to state as sizes 
+        this.setState({ 
+            sizes: dogSizes.body
+         })
+
+         console.log(this.state.sizes)
+
     }
     
     // handle functions go here
@@ -18,21 +34,27 @@ export default class CreatePage extends Component {
     handleSubmit = async (e) => {
         e.preventDefault();
 
-        // await and get the data from the form 
+        try {
+            // await and get the data from the form 
         await createDogTile({
             name: this.state.name,
             age_years: this.state.age_years,
-            size: this.state.size,
-            is_adopted: this.state.is_adopted
+            is_adopted: this.state.is_adopted,
+            size_id: this.state.size_id,
+            size: this.state.size
         });
 
         // set state back to default values
         this.setState({
             name: 'Clifford',
             age_years: 1,
-            size: 'small',
-            is_adopted: true
+            is_adopted: true,
+            size_id: 1,
+            size: 'small'
         });
+        } catch(e) {
+            return { error: e.message }
+        }
     }
     
     // handleNameChange

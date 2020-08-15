@@ -9,16 +9,14 @@ export default class DetailPage extends Component {
         dog: {}
     }
 
-    // when component mounts, get one dog info using id
+    // when component mounts, get dogs and dog sizes 
     componentDidMount = async () => {
         const data = await fetchOneDog(this.props.match.params.id)
 
-        // get the first obj in the array and set it to the dog state
         this.setState({
             dog: data.body
         })
     }
-    
     render() {
         console.log(this.state.dog)
         return (
