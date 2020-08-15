@@ -28,3 +28,9 @@ export function createDogTile(dogData) {
     // make a POST request with the dogData...add to dogs list page
     return request.post(`${URL}/dogs`, dogData)
 }
+
+// DELETE a dog tile function
+export function deleteDogTile(id) {
+    // make a DELETE request with the 
+    return request.delete(`${URL}/dogs/${id}`)
+}

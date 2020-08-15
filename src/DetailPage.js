@@ -1,7 +1,7 @@
 // pup details go here
 
 import React, { Component } from 'react';
-import { fetchOneDog } from './dogs-api.js';
+import { fetchOneDog, deleteDogTile } from './dogs-api.js';
 
 export default class DetailPage extends Component {
     // set one dog state to an empty object 
@@ -17,6 +17,13 @@ export default class DetailPage extends Component {
             dog: data.body
         })
     }
+
+    handleDeleteChange = async () => {
+        await deleteDogTile(this.props.match.params.id);
+
+        this.props.history.push('/')
+        
+    }
     render() {
         console.log(this.state.dog)
         return (
@@ -29,6 +36,11 @@ export default class DetailPage extends Component {
                         <div>{this.state.dog.name} is a {this.state.dog.size} sized pup.</div>
                     </p>
                 </div>
+
+                {/* Delete button */}
+                <button onClick={this.handleDeleteChange}>Delete</button>
+                
+
             </div>
         )
     }
