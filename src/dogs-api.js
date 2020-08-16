@@ -2,8 +2,7 @@
 import request from 'superagent';
 
 // API URL for fetch
-const URL = 'http://localhost:3000';
-// const URL = process.env.REACT_APP_API_URL;
+const URL = process.env.REACT_APP_API_URL;
 
 export function fetchDogsData() {
     return request.get(`${URL}/dogs`);
