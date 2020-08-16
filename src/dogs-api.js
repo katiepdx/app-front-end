@@ -34,3 +34,9 @@ export function deleteDogTile(id) {
     // make a DELETE request with the 
     return request.delete(`${URL}/dogs/${id}`)
 }
+
+// PUT/update a dog tile function
+export function updateDogTile(id, updatedDogTile) {
+    // make a PUT/update request with the 
+    return request.put(`${URL}/dogs/${id}`, updatedDogTile)
+}

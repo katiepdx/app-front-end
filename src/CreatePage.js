@@ -13,8 +13,6 @@ export default class CreatePage extends Component {
         sizes: []
     }
 
-  
-
     // on page load, fetchDogSizes 
     componentDidMount = async () => {
         // get dog sizes 
@@ -24,8 +22,6 @@ export default class CreatePage extends Component {
         this.setState({ 
             sizes: dogSizes.body
          })
-
-         console.log(this.state.sizes)
 
     }
     
