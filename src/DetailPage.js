@@ -129,7 +129,7 @@ export default class DetailPage extends Component {
                         {/* is_adopted/has a forever home - boolean */}
                         <label>
                             Has Forever Home:
-                            <input onChange={this.handleHomeChange} type="checkbox" name="home" value="true" />
+                            <input onChange={this.handleHomeChange} type="checkbox" name="home" value="false" />
 
                         </label>
 

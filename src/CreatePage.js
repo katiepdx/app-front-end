@@ -51,6 +51,9 @@ export default class CreatePage extends Component {
                 size_id: 1,
                 size: 'x-small'
             });
+
+            this.props.history.push('/');
+
         } catch(e) {
             console.log('ERROR with handleSubmit', e.message); 
         }
