@@ -22,6 +22,8 @@ export default class CreatePage extends Component {
         this.setState({ 
             sizes: dogSizes.body
          })
+        
+         console.log(dogSizes);
 
     }
     
@@ -47,7 +49,7 @@ export default class CreatePage extends Component {
                 age_years: 1,
                 is_adopted: true,
                 size_id: 1,
-                size: 'small'
+                size: 'x-small'
             });
         } catch(e) {
             console.log('ERROR with handleSubmit', e.message); 

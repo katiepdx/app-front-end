@@ -17,6 +17,7 @@ export default class DetailPage extends Component {
         const data = await fetchOneDog(this.props.match.params.id)
         // get dog sizes 
         const dogSizes = await fetchDogSizes();
+        console.log('DOG SIZES', dogSizes)
 
         // set the fields to auto populate with selected items details
         this.setState({
@@ -26,9 +27,7 @@ export default class DetailPage extends Component {
             is_adopted: data.body.is_adopted,
             sizes: dogSizes.body, 
             size_id: dogSizes.body.size_id
-
         })
-        
     }
 
     handleSubmit = async (e) => {
@@ -42,8 +41,8 @@ export default class DetailPage extends Component {
                     name: this.state.name,
                     age_years: this.state.age_years,
                     is_adopted: this.state.is_adopted,
-                    size_id: this.state.size_id,
-                    size: this.state.size
+                    size: this.state.size,
+                    size_id: this.state.size_id
                 }
             );
             
@@ -56,7 +55,7 @@ export default class DetailPage extends Component {
                 name: updatedDog.body.name,
                 age_years: updatedDog.body.age_years,
                 is_adopted: updatedDog.body.is_adopted,
-                size: updatedDog.body.size, 
+                size: updatedDog.body.size
             });
         } catch(e) {
             console.log('ERROR with handleSubmit', e.message); 
@@ -76,6 +75,7 @@ export default class DetailPage extends Component {
     // handleSizeChange
     handleSizeChange = (e) => {
         this.setState({ size: e.target.value })
+        console.log('HandleSizeChange', e.target.value)
     }
 
     // handleHomeChange
@@ -90,7 +90,7 @@ export default class DetailPage extends Component {
         
     }
     render() {
-        console.log(this.state.dog)
+        console.log('DOG', this.state.dog)
         return (
             <div>
                 <h1>About {this.state.dog.name}</h1>
