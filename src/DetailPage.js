@@ -17,8 +17,7 @@ export default class DetailPage extends Component {
         const data = await fetchOneDog(this.props.match.params.id)
         // get dog sizes 
         const dogSizes = await fetchDogSizes();
-        console.log('DOG SIZES', dogSizes)
-
+        
         // set the fields to auto populate with selected items details
         this.setState({
             dog: data.body,
@@ -42,7 +41,7 @@ export default class DetailPage extends Component {
                     age_years: this.state.age_years,
                     is_adopted: this.state.is_adopted,
                     size: this.state.size,
-                    size_id: this.state.size_id
+                    size_id: this.state.size_id,
                 }
             );
             
@@ -55,7 +54,7 @@ export default class DetailPage extends Component {
                 name: updatedDog.body.name,
                 age_years: updatedDog.body.age_years,
                 is_adopted: updatedDog.body.is_adopted,
-                size: updatedDog.body.size
+                size: updatedDog.body.size_id
             });
         } catch(e) {
             console.log('ERROR with handleSubmit', e.message); 
@@ -135,11 +134,11 @@ export default class DetailPage extends Component {
                         </label>
 
                         <button>Update</button>
+                        {/* Delete button */}
+                        <button className="delete-button" onClick={this.handleDeleteChange}>Delete</button>
                     </div>
                 </form>
 
-                {/* Delete button */}
-                <button onClick={this.handleDeleteChange}>Delete</button>
             </div>
         )
     }
