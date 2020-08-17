@@ -28,6 +28,10 @@ export default class DetailPage extends Component {
             size_id: dogSizes.body.size_id
         })
 
+        // set dropdown value
+        const sizesDropdown = document.getElementById('size-dropdown');
+        sizesDropdown.value = this.state.size_id;
+        
         // set is_adopted value 
         const hasHome = document.getElementById("has-home");
         hasHome.checked = this.state.is_adopted;
