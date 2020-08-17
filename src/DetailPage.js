@@ -27,6 +27,10 @@ export default class DetailPage extends Component {
             sizes: dogSizes.body, 
             size_id: dogSizes.body.size_id
         })
+
+        // set is_adopted value 
+        const hasHome = document.getElementById("has-home");
+        hasHome.checked = this.state.is_adopted;
     }
 
     handleSubmit = async (e) => {
@@ -56,6 +60,8 @@ export default class DetailPage extends Component {
                 is_adopted: updatedDog.body.is_adopted,
                 size: updatedDog.body.size_id
             });
+
+            this.props.history.push('/')
         } catch(e) {
             console.log('ERROR with handleSubmit', e.message); 
         }
@@ -74,12 +80,11 @@ export default class DetailPage extends Component {
     // handleSizeChange
     handleSizeChange = (e) => {
         this.setState({ size: e.target.value })
-        console.log('HandleSizeChange', e.target.value)
     }
 
     // handleHomeChange
-    handleHomeChange = () => {
-        this.setState({ is_adopted: true })
+    handleHomeChange = (e) => {
+        this.setState({ is_adopted: e.target.checked })
     }
 
     handleDeleteChange = async () => {
@@ -119,7 +124,7 @@ export default class DetailPage extends Component {
                         {/* dog size dropdown selection */}
                         <label>
                             Size:
-                            <select onChange={this.handleSizeChange} value={this.state.size} >
+                            <select onChange={this.handleSizeChange} id="size-dropdown" value={this.state.size} >
                                 {
                                     this.state.sizes.map(size => <option value={size.id} key={size.id}>{size.size}</option>)
                                 }
@@ -129,7 +134,7 @@ export default class DetailPage extends Component {
                         {/* is_adopted/has a forever home - boolean */}
                         <label>
                             Has Forever Home:
-                            <input onChange={this.handleHomeChange} type="checkbox" name="home" value="false" />
+                            <input onChange={this.handleHomeChange} id="has-home" type="checkbox" name="home" value={this.state.is_adopted} />
 
                         </label>
 
