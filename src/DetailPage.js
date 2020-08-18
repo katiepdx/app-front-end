@@ -1,26 +1,104 @@
-// pup details go here
-
 import React, { Component } from 'react';
-import { fetchOneDog } from './dogs-api.js';
+import { fetchOneDog, deleteDogTile, updateDogTile, fetchDogSizes } from './dogs-api.js';
 
 export default class DetailPage extends Component {
-    // set one dog state to an empty object 
+    // set one 
     state = {
-        dog: {}
+        dog: {},
+        name: 'Clifford',
+        age_years: 1,
+        is_adopted: false,
+        size_id: 1,
+        sizes: []
     }
 
-    // when component mounts, get one dog info using id
+    // when component mounts, get dogs and dog sizes 
     componentDidMount = async () => {
         const data = await fetchOneDog(this.props.match.params.id)
-
-        // get the first obj in the array and set it to the dog state
+        // get dog sizes 
+        const dogSizes = await fetchDogSizes();
+        
+        // set the fields to auto populate with selected items details
         this.setState({
-            dog: data.body
+            dog: data.body,
+            name: data.body.name,
+            age_years: data.body.age_years,
+            is_adopted: data.body.is_adopted,
+            sizes: dogSizes.body, 
+            size_id: dogSizes.body.size_id
         })
+
+        // set dropdown value
+        const sizesDropdown = document.getElementById('size-dropdown');
+        sizesDropdown.value = this.state.size_id;
+        
+        // set is_adopted value 
+        const hasHome = document.getElementById("has-home");
+        hasHome.checked = this.state.is_adopted;
+    }
+
+    handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            // get the tile info and pass them through update function
+            await updateDogTile(
+                this.props.match.params.id,
+                {
+                    name: this.state.name,
+                    age_years: this.state.age_years,
+                    is_adopted: this.state.is_adopted,
+                    size: this.state.size,
+                    size_id: this.state.size_id,
+                }
+            );
+            
+            // get the updated dog info from database 
+            const updatedDog = await fetchOneDog(this.props.match.params.id)
+
+            // set state to specific pups details
+            this.setState({
+                dog: updatedDog.body,
+                name: updatedDog.body.name,
+                age_years: updatedDog.body.age_years,
+                is_adopted: updatedDog.body.is_adopted,
+                size: updatedDog.body.size_id
+            });
+
+            this.props.history.push('/')
+        } catch(e) {
+            console.log('ERROR with handleSubmit', e.message); 
+        }
+    }
+
+    // handleNameChange
+    handleNameChange = (e) => {
+        this.setState({ name: e.target.value })
     }
     
+    // handleAgeChange
+    handleAgeChange = (e) => {
+        this.setState({ age_years: e.target.value })
+    }
+
+    // handleSizeChange
+    handleSizeChange = (e) => {
+        this.setState({ size: e.target.value })
+    }
+
+    // handleHomeChange
+    handleHomeChange = (e) => {
+        this.setState({ is_adopted: e.target.checked })
+    }
+
+    handleDeleteChange = async () => {
+        await deleteDogTile(this.props.match.params.id);
+
+        this.props.history.push('/')
+        
+    }
     render() {
-        console.log(this.state.dog)
+        console.log('DOG', this.state.dog)
         return (
             <div>
                 <h1>About {this.state.dog.name}</h1>
@@ -31,6 +109,45 @@ export default class DetailPage extends Component {
                         <div>{this.state.dog.name} is a {this.state.dog.size} sized pup.</div>
                     </p>
                 </div>
+
+                {/* update form */}
+                <form className="add-form-container" onSubmit={this.handleSubmit}>
+                    <div className="add-form">
+                        {/* name */}
+                        <label>
+                            Name:
+                            <input onChange={this.handleNameChange} type="text" value={this.state.name} />
+                        </label>
+
+                        {/* age */}
+                        <label>
+                            Age:
+                            <input onChange={this.handleAgeChange} type="number" value={this.state.age_years} />
+                        </label>
+
+                        {/* dog size dropdown selection */}
+                        <label>
+                            Size:
+                            <select onChange={this.handleSizeChange} id="size-dropdown" value={this.state.size} >
+                                {
+                                    this.state.sizes.map(size => <option value={size.id} key={size.id}>{size.size}</option>)
+                                }
+                            </select>
+                        </label>
+
+                        {/* is_adopted/has a forever home - boolean */}
+                        <label>
+                            Has Forever Home:
+                            <input onChange={this.handleHomeChange} id="has-home" type="checkbox" name="home" value={this.state.is_adopted} />
+
+                        </label>
+
+                        <button>Update</button>
+                        {/* Delete button */}
+                        <button className="delete-button" onClick={this.handleDeleteChange}>Delete</button>
+                    </div>
+                </form>
+
             </div>
         )
     }

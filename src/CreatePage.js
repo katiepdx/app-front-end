@@ -1,15 +1,30 @@
 // add an entry page here
 
 import React, { Component } from 'react'
-import { createDogTile } from './dogs-api.js';
+import { createDogTile, fetchDogSizes } from './dogs-api.js';
 
 export default class CreatePage extends Component {
     // set state 
     state = {
         name: 'Clifford',
         age_years: 1,
-        size: 'small',
-        is_adopted: false
+        is_adopted: false,
+        size_id: 1,
+        sizes: []
+    }
+
+    // on page load, fetchDogSizes 
+    componentDidMount = async () => {
+        // get dog sizes 
+        const dogSizes = await fetchDogSizes();
+
+        // set the dog sizes to state as sizes 
+        this.setState({ 
+            sizes: dogSizes.body
+         })
+        
+         console.log(dogSizes);
+
     }
     
     // handle functions go here
@@ -18,21 +33,30 @@ export default class CreatePage extends Component {
     handleSubmit = async (e) => {
         e.preventDefault();
 
-        // await and get the data from the form 
-        await createDogTile({
-            name: this.state.name,
-            age_years: this.state.age_years,
-            size: this.state.size,
-            is_adopted: this.state.is_adopted
-        });
+        try {
+            // await and get the data from the form 
+            await createDogTile({
+                name: this.state.name,
+                age_years: this.state.age_years,
+                is_adopted: this.state.is_adopted,
+                size_id: this.state.size_id,
+                size: this.state.size
+            });
 
-        // set state back to default values
-        this.setState({
-            name: 'Clifford',
-            age_years: 1,
-            size: 'small',
-            is_adopted: true
-        });
+            // set state back to default values
+            this.setState({
+                name: 'Clifford',
+                age_years: 1,
+                is_adopted: true,
+                size_id: 1,
+                size: 'x-small'
+            });
+
+            this.props.history.push('/');
+
+        } catch(e) {
+            console.log('ERROR with handleSubmit', e.message); 
+        }
     }
     
     // handleNameChange
@@ -78,11 +102,9 @@ export default class CreatePage extends Component {
                         <label>
                             Size:
                             <select onChange={this.handleSizeChange} value={this.state.size} >
-                                <option value="x-small">x-small</option>
-                                <option value="small">small</option>
-                                <option value="medium">medium</option>
-                                <option value="large">large</option>
-                                <option value="x-large">x-large</option>
+                                {
+                                    this.state.sizes.map(size => <option value={size.id} key={size.id}>{size.size}</option>)
+                                }
                             </select>
                         </label>
 

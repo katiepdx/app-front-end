@@ -3,6 +3,7 @@ import request from 'superagent';
 
 // API URL for fetch
 const URL = process.env.REACT_APP_API_URL;
+// const URL = 'http://localhost:3000';
 
 export function fetchDogsData() {
     return request.get(`${URL}/dogs`);
@@ -12,8 +13,30 @@ export function fetchDogsData() {
 export function fetchOneDog(id) {
     return request.get(`${URL}/dogs/${id}`);
 }
+
+// fetch dog sizes from api 
+export function fetchDogSizes() {
+    try {
+        return request.get(`${URL}/sizes`);
+    } catch(e) {
+        return { error: e.message }
+    }
+}
+
 // create a dog tile function using the data from the form
 export function createDogTile(dogData) {
     // make a POST request with the dogData...add to dogs list page
     return request.post(`${URL}/dogs`, dogData)
+}
+
+// DELETE a dog tile function
+export function deleteDogTile(id) {
+    // make a DELETE request with the 
+    return request.delete(`${URL}/dogs/${id}`)
+}
+
+// PUT/update a dog tile function
+export function updateDogTile(id, updatedDogTile) {
+    // make a PUT/update request with the 
+    return request.put(`${URL}/dogs/${id}`, updatedDogTile)
 }
